@@ -1,0 +1,17 @@
+
+
+
+
+.gmaps {
+  img {
+    max-width: none;
+  }
+
+  &.gmaps-static {
+    > div {
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      display: block;
+    }
+  }
+}

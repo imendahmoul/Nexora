@@ -1,0 +1,117 @@
+
+
+
+
+
+.btn {
+  --#{$prefix}btn-color: var(--#{$prefix}body-color);
+
+  outline: none !important;
+
+  &:not(.btn-shadow):not(.shadow):not(.shadow-sm):not(.shadow-lg):not(.shadow-xs) {
+    box-shadow: none;
+  }
+
+  &:not(.btn-outline):not(.btn-dashed):not(.btn-bordered):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
+    border: 0;
+    padding: calc(#{$btn-padding-y} + #{$btn-border-width})
+      calc(#{$btn-padding-x} + #{$btn-border-width});
+
+    &.btn-lg {
+      padding: calc(#{$btn-padding-y-lg} + #{$btn-border-width})
+        calc(#{$btn-padding-x-lg} + #{$btn-border-width});
+    }
+
+    &.btn-sm {
+      padding: calc(#{$btn-padding-y-sm} + #{$btn-border-width})
+        calc(#{$btn-padding-x-sm} + #{$btn-border-width});
+    }
+  }
+
+  &.btn-link {
+    border: 0;
+    border-radius: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-decoration: none;
+    font-weight: $btn-font-weight;
+  }
+
+  &.btn-outline:not(.btn-outline-dashed) {
+    border: 1px solid $input-border-color;
+  }
+
+  &.btn-outline-dashed {
+    border: 1px dashed $input-border-color;
+  }
+
+  &.btn-flush {
+    @include button-reset();
+  }
+
+  &.btn-flex {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &.btn-trim-start {
+    justify-content: flex-start !important;
+    padding-left: 0 !important;
+  }
+
+  &.btn-trim-end {
+    justify-content: flex-end !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+.btn-reset {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  user-select: none;
+  outline: none;
+}
+
+
+.btn {
+  > i {
+    display: inline-flex;
+    font-size: $font-size-base;
+    padding-right: 0.35rem;
+    vertical-align: middle;
+  }
+
+  &.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: $input-height;
+    width: $input-height;
+    line-height: 1;
+
+    i {
+      padding-right: 0;
+    }
+
+    &:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush) {
+      border: 0;
+    }
+
+    &.btn-sm {
+      height: $input-height-sm;
+      width: $input-height-sm;
+    }
+
+    &.btn-lg {
+      height: $input-height-lg;
+      width: $input-height-lg;
+    }
+
+    &.btn-circle {
+      border-radius: 50%;
+    }
+  }
+}

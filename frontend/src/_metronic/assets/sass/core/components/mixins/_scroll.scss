@@ -1,0 +1,29 @@
+
+
+
+
+@mixin scrollbar-color($color, $hover-color: null) {
+  scrollbar-color: $color transparent;
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  @if ($hover-color != null) {
+    &:hover {
+      scrollbar-color: $hover-color transparent;
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $hover-color;
+      }
+
+      &::-webkit-scrollbar-corner {
+        background-color: transparent;
+      }
+    }
+  }
+}

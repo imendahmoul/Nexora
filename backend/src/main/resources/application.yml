@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: pfe-platform-backend
+
+  main:
+    allow-circular-references: true
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://127.0.0.1:49857;databaseName=dbDWH;integratedSecurity=true;encrypt=false;trustServerCertificate=true}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 5
+      connection-timeout: 20000
+
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:PFEImenSecretKey2024VeryLongSecretKeyForJWTSigning1234567890ABCDEF}
+    expiration: 86400000  # 24h in ms
+    refresh-expiration: 604800000  # 7 days
+
+  ml-service:
+    url: ${ML_SERVICE_URL:http://localhost:8000}
+
+
+logging:
+  level:
+    com.pfe: DEBUG
+    org.springframework.security: WARN

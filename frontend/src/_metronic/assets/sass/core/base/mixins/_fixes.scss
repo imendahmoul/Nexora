@@ -1,0 +1,13 @@
+
+
+
+
+@mixin fix-fixed-position-lags() {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@mixin fix-animation-lags() {
+  transform: translateZ(0);
+  -webkit-transform-style: preserve-3d;
+}

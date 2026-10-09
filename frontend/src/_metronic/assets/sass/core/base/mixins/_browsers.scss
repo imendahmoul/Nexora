@@ -1,0 +1,21 @@
+
+
+
+
+@mixin for-edge {
+  @supports (-ms-ime-align: auto) {
+    @content;
+  }
+}
+
+@mixin for-safari {
+  .safari {
+    @content;
+  }
+}
+
+@mixin for-firefox {
+  @-moz-document url-prefix() {
+    @content;
+  }
+}

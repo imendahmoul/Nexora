@@ -1,0 +1,20 @@
+
+
+
+
+
+@include media-breakpoint-up(lg) {
+  .app-aside {
+    border: 1px solid var(--#{$prefix}border-color);
+    border-radius: $card-border-radius;
+    box-shadow: $card-box-shadow;
+  }
+}
+
+
+@include color-mode(dark) {
+  @include media-breakpoint-up(lg) {
+    .app-aside {
+    }
+  }
+}

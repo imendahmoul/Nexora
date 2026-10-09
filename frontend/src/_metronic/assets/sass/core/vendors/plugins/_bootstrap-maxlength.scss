@@ -1,0 +1,15 @@
+
+
+
+
+.bootstrap-maxlength {
+  z-index: $bootstrap-maxlength-z-index !important;
+
+  .modal-open & {
+    z-index: #{$zindex-modal + 5} !important;
+  }
+
+  &.badge {
+    display: inline-flex !important;
+  }
+}

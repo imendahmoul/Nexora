@@ -1,0 +1,11 @@
+
+
+
+
+.form-floating {
+  .form-control.form-control-solid {
+    &::placeholder {
+      color: transparent;
+    }
+  }
+}

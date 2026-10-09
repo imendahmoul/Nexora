@@ -1,0 +1,19 @@
+
+
+
+
+.toggle {
+  &.collapsible:not(.collapsed), 
+    &.active {
+    .toggle-off {
+      display: none;
+    }
+  }
+
+  &.collapsible.collapsed, 
+    &:not(.collapsible):not(.active) {
+    .toggle-on {
+      display: none;
+    }
+  }
+}
