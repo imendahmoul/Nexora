@@ -9,12 +9,8 @@ spring:
     allow-circular-references: true
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://127.0.0.1:49857;databaseName=dbDWH;integratedSecurity=true;encrypt=false;trustServerCertificate=true}
+    url: jdbc:sqlserver://LAPTOP-M7HILU4Q;databaseName=dbDWH;integratedSecurity=true;encrypt=false;trustServerCertificate=true
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    hikari:
-      minimum-idle: 2
-      maximum-pool-size: 5
-      connection-timeout: 20000
 
   jpa:
     database-platform: org.hibernate.dialect.SQLServerDialect

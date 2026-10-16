@@ -23,7 +23,7 @@ from models import (
 
 app = FastAPI(
     title="Nexora - ML Service",
-    description="Service IA & Data Science: Prévisions, Clustering, Insights",
+    description="Service IA & Data Science: Prévisions et Insights",
     version="2.0.0"
 )
 app.add_middleware(
@@ -33,7 +33,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-DB_SERVER = os.getenv("DB_SERVER", "localhost\\SQL22")
+DB_SERVER = os.getenv("DB_SERVER", "LAPTOP-M7HILU4Q")
 DB_NAME   = os.getenv("DB_NAME",   "dbDWH")
 _engine   = None
 def get_engine():
@@ -94,10 +94,12 @@ def health():
         "db_connected": db_ok,
         "timestamp": datetime.now().isoformat()
     }
+
 @app.get("/predict/production")
 def predict_production(horizon: int = 30):
     try:
-        dates = [datetime.now() + timedelta(days=i) for i in range(1, horizon + 1)]
+        start_date = datetime(2027, 1, 1)
+        dates = [start_date + timedelta(days=i) for i in range(horizon)]
         base_qty = 8500
         predictions = []
         for i, date in enumerate(dates):
@@ -182,7 +184,8 @@ def predict_production(horizon: int = 30):
 def simulate_scenario(request: ScenarioRequest):
     try:
         factor = 1 + (request.variation_percent / 100)
-        dates  = [datetime.now() + timedelta(days=i) for i in range(1, request.horizon + 1)]
+        start_date = datetime(2027, 1, 1)
+        dates  = [start_date + timedelta(days=i) for i in range(request.horizon)]
         baseline = [round(120 * (0 if d.weekday() >= 5 else 1)) for d in dates]
         scenario = [round(v * factor) for v in baseline]
         return {
@@ -362,15 +365,15 @@ def predict_custom(req: CustomPredictionRequest):
             raise HTTPException(400, "Le fichier doit contenir au moins 5 observations temporelles.")
 
         df = pd.DataFrame([{"date": pd.to_datetime(d.date), "value": float(d.value)} for d in raw])
-        df = df.sort_values("date").reset_index(drop=True)
+        df = df.groupby("date")["value"].sum().reset_index().sort_values("date").reset_index(drop=True)
         n = len(df)
 
         lr_m = LinearRegressionModel().fit(df)
         arima_m = ARIMAModel().fit(df)
         prophet_m = ProphetModel().fit(df)
-        rf_m = RandomForestModel(n_estimators=50, max_depth=8).fit(df)
+        rf_m = RandomForestModel(n_estimators=100, max_depth=10).fit(df)
 
-        n_splits = min(5, max(2, n - 2)) if n >= 6 else 2
+        n_splits = min(6, max(2, n - 2)) if n >= 7 else 2
 
         eval_lr = lr_m.evaluate(n_splits=n_splits)
         eval_arima = arima_m.evaluate(n_splits=n_splits)
